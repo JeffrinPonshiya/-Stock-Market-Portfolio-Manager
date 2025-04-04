@@ -1,11 +1,9 @@
 import yfinance as yf
 import pandas as pd
-
 class PortfolioManager:
     def _init(self): # Changed _init to _init_
         """Initialize portfolio as a dictionary."""
         self.portfolio = {}
-
     def add_stock(self, ticker, quantity, buy_price):
         """Add or update stock in the portfolio."""
         if ticker in self.portfolio:
@@ -14,7 +12,6 @@ class PortfolioManager:
         else:
             self.portfolio[ticker] = {'quantity': quantity, 'buy_price': buy_price, 'total_cost': quantity * buy_price}
         print(f"{quantity} shares of {ticker} added at ${buy_price} each.")
-
     def remove_stock(self, ticker, quantity):
         """Remove stock from portfolio."""
         if ticker in self.portfolio:
@@ -26,22 +23,18 @@ class PortfolioManager:
             print(f"{quantity} shares of {ticker} removed.")
         else:
             print(f"{ticker} not in portfolio.")
-
     def fetch_live_prices(self):
         """Fetch live prices for all stocks in portfolio."""
         for ticker in self.portfolio.keys():
             stock = yf.Ticker(ticker)
             live_price = stock.history(period="1d")['Close'].iloc[-1]
             self.portfolio[ticker]['live_price'] = live_price
-
     def display_portfolio(self):
         """Display portfolio with live stock prices and profit/loss."""
         if not self.portfolio:
             print("Portfolio is empty.")
             return
-        
         self.fetch_live_prices()
-        
         data = []
         for ticker, details in self.portfolio.items():
             quantity = details['quantity']
