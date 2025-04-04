@@ -1,6 +1,6 @@
 import yfinance as yf
 import pandas as pd
-class PortfolioManager:
+cl PortfolioManager:
     def _init(self): # Changed _init to _init_
         """Initialize portfolio as a dictionary."""
         self.portfolio = {}
